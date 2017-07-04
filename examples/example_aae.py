@@ -9,7 +9,7 @@ mpl.use('Agg')
 from keras.layers import Dense, Reshape, Flatten, Input, merge
 from keras.models import Sequential, Model
 from keras.optimizers import Adam
-from keras.regularizers import l1, l1l2
+from keras.regularizers import l1, L1L2
 import keras.backend as K
 import pandas as pd
 import numpy as np
@@ -49,7 +49,7 @@ def model_encoder(latent_dim, input_shape, hidden_dim=512, reg=lambda: l1(1e-7))
 
 
 def model_discriminator(latent_dim, output_dim=1, hidden_dim=512,
-                        reg=lambda: l1l2(1e-7, 1e-7)):
+                        reg=lambda: L1L2(1e-7, 1e-7)):
     z = Input((latent_dim,))
     h = z
     h = Dense(hidden_dim, name="discriminator_h1", W_regularizer=reg())(h)
